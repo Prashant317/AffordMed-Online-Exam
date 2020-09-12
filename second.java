@@ -14,42 +14,21 @@ class second {
     
     static boolean isBalanced(String s) 
     { 
-    
-        Deque<Character> stk = new ArrayDeque<Character>(); 
-   
-        for (int i = 0; i < s.length(); i++) { 
-            char ch = s.charAt(i); 
-  
-            if (ch == '(' || ch == '[' || ch == '{') { 
-                stk.push(ch); 
-                continue; 
-            } 
-  
-            if (stk.isEmpty()) 
-                return false; 
-  
-            switch (ch) { 
-            case ')': 
-                stk.pop(); 
-                if (ch == '{' || ch == '[') 
-                    return false; 
-                break; 
-  
-            case '}': 
-                stk.pop(); 
-                if (ch == '(' || ch == '[') 
-                    return false; 
-                break; 
-  
-            case ']': 
-                stk.pop(); 
-                if (ch == '(' || ch == '{') 
-                    return false; 
-                break; 
-            } 
-        } 
-  
-        return (stk.isEmpty()); 
+		Stack<Character>st = new Stack<>();
+		for(char c: s.toCharArray()){
+			if(c=='(' || c=='[' || c=='{'){
+				st.push(c);
+			}else if(c==')' && !st.isEmpty() && st.peek()=='('){
+				st.pop();
+			}else if(c==']' && !st.isEmpty() && st.peek()=='['){
+				st.pop();
+			}else if(c=='}' && !st.isEmpty() && st.peek()=='{'){
+				st.pop();
+			}else{
+				return false;
+			}
+		}
+		return st.isEmpty();
     } 
   
     public static void main(String[] args) 
